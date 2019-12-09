@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\kamil\\Documents\\GitHub\\Analizator-tekstow\\AnalizatorTekstow.csproj": {}
+    "C:\\Users\\kamil\\Desktop\\szkola\\Analizator-tekstow\\AnalizatorTekstow.csproj": {}
   },
   "projects": {
-    "C:\\Users\\kamil\\Documents\\GitHub\\Analizator-tekstow\\AnalizatorTekstow.csproj": {
+    "C:\\Users\\kamil\\Desktop\\szkola\\Analizator-tekstow\\AnalizatorTekstow.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kamil\\Documents\\GitHub\\Analizator-tekstow\\AnalizatorTekstow.csproj",
+        "projectUniqueName": "C:\\Users\\kamil\\Desktop\\szkola\\Analizator-tekstow\\AnalizatorTekstow.csproj",
         "projectName": "AnalizatorTekstow",
-        "projectPath": "C:\\Users\\kamil\\Documents\\GitHub\\Analizator-tekstow\\AnalizatorTekstow.csproj",
+        "projectPath": "C:\\Users\\kamil\\Desktop\\szkola\\Analizator-tekstow\\AnalizatorTekstow.csproj",
         "packagesPath": "C:\\Users\\kamil\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kamil\\Documents\\GitHub\\Analizator-tekstow\\obj\\",
+        "outputPath": "C:\\Users\\kamil\\Desktop\\szkola\\Analizator-tekstow\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\kamil\\AppData\\Roaming\\NuGet\\NuGet.Config",
