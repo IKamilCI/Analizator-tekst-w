@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 
 namespace AnalizatorTekstow
 {
@@ -6,6 +7,8 @@ namespace AnalizatorTekstow
     {
         static void Main(string[] args)
         {
+            string _url = "";// string with hardcoded url adress of the file
+            string _path = "";//string with path to where save the file
             while (true)
             {
                 Console.WriteLine("1. Pobierz plik z internetu.");
@@ -19,6 +22,29 @@ namespace AnalizatorTekstow
                 int menuOption = Convert.ToInt32(Console.ReadLine());
                 if (menuOption == 8)
                     break;
+                if (menuOption == 1)
+                {
+                    Console.WriteLine(Downloader(_url, _path));                                             
+                }
+            }
+
+            //metod downloading file from url, and saving it in the directory path
+            string Downloader(string url, string path)
+            {
+                //checking if path and url are not empty to not couse exception
+                if(string.IsNullOrEmpty(url)&&string.IsNullOrEmpty(path))
+                {
+                    using (WebClient myClient = new WebClient())
+                    {
+                        myClient.DownloadFile(url, @path);
+                    }
+                    return "Pobieranie pliku rozpoczęte.";
+                }
+                else
+                {
+                    return "Adres url i/albo ścieżka są puste. Pobieranie nieudane.";
+                }
+              
             }
         }
     }
