@@ -14,7 +14,7 @@ namespace AnalizatorTekstow
             {
                 Console.WriteLine("1. Pobierz plik z internetu.");
                 Console.WriteLine("2. Zlicz liczbę liter w pobranym pliku.");
-                Console.WriteLine("3. Zlicz liczbę wyrazów w pliku.");
+                Console.WriteLine("3. Zlicz liczbę wyrazów w pliku.");              
                 Console.WriteLine("4. Zlicz liczbę znaków interpunkcyjnych w pliku.");
                 Console.WriteLine("5. Zlicz liczbę zdań w pliku.");
                 Console.WriteLine("6. Wygeneruj raport o użyciu liter(A - Z).");
@@ -23,6 +23,10 @@ namespace AnalizatorTekstow
                 int menuOption = Convert.ToInt32(Console.ReadLine());
                 if (menuOption == 8)
                     break;
+                if (menuOption == 3)
+                {
+                    Console.WriteLine(Counter(_path));
+                }
                 if (menuOption == 1)
                 {
                     Console.WriteLine(Downloader(_url, _path));                                             
