@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.IO;
 
 namespace AnalizatorTekstow
 {
@@ -7,8 +8,8 @@ namespace AnalizatorTekstow
     {
         static void Main(string[] args)
         {
-            string _url = "";// string with hardcoded url adress of the file
-            string _path = "";//string with path to where save the file
+            string _url = "https://s3.zylowski.net/public/input/1.txt";// string with hardcoded url adress of the file
+            string _path = @"C:\\Users\\nazwa\\Desktop\\1.txt";//string with path to where save the file
             while (true)
             {
                 Console.WriteLine("1. Pobierz plik z internetu.");
@@ -34,17 +35,37 @@ namespace AnalizatorTekstow
                 //checking if path and url are not empty to not couse exception
                 if(string.IsNullOrEmpty(url)&&string.IsNullOrEmpty(path))
                 {
+                    return "Adres url i/albo ścieżka są puste. Pobieranie nieudane.";
+                }
+                else
+                {                    
                     using (WebClient myClient = new WebClient())
                     {
-                        myClient.DownloadFile(url, @path);
+                        myClient.DownloadFile(url, path);
                     }
                     return "Pobieranie pliku rozpoczęte.";
                 }
+              
+            }
+
+            //counting words in file 
+            string Counter(string path)
+            {
+                if (File.Exists(path))
+                {
+                    int count;
+                    using (StreamReader reader = new StreamReader(path))
+                    {
+                        string tekst = File.ReadAllText(path);
+                        char[] rozdzielacze = new char[] { ' ', '\n', '\r' };
+                        count = tekst.Split(rozdzielacze, StringSplitOptions.RemoveEmptyEntries).Length;
+                    }
+                    return count.ToString();
+                }
                 else
                 {
-                    return "Adres url i/albo ścieżka są puste. Pobieranie nieudane.";
+                    return "Błąd, plik nie istnieje!";
                 }
-              
             }
         }
     }
