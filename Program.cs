@@ -43,6 +43,10 @@ namespace AnalizatorTekstow
                 {
                     Console.WriteLine(SentencesCounter(_path));
                 }
+                if (menuOption == 7)
+                {
+                    savestatisctic();
+                }
                 if (menuOption == 8)
                     break;
             }
@@ -66,7 +70,7 @@ namespace AnalizatorTekstow
               
             }
 
-            //counting words in file 
+            //counting letters in file 
             string LettersCounter(string path)
             {
                 if (File.Exists(path))
@@ -104,6 +108,7 @@ namespace AnalizatorTekstow
                     return "\nBłąd, plik nie istnieje!";
                 }
             }
+            //counting Punctuation Marks in file 
             string PunctuationMarksCounter(string path)
             {
                 if (File.Exists(path))
@@ -118,13 +123,14 @@ namespace AnalizatorTekstow
                         PunctuationMarksCounter = tekst.Split(separator, StringSplitOptions.RemoveEmptyEntries).Length;
 
                     }
-                    return PunctuationMarksCounter.ToString();
+                    return "\nLiczba znakow interpunkcyjnych: " + PunctuationMarksCounter.ToString();
                 }
                 else
                 {
                     return "Błąd, plik nie istnieje!";
                 }
             }
+            //counting Sentences in file 
             string SentencesCounter(string path)
             {
                 if (File.Exists(path))
@@ -151,12 +157,20 @@ namespace AnalizatorTekstow
 
 
                     }
-                    return SentencesCounter.ToString();
+                    return "\nLiczba zdan: " + SentencesCounter.ToString();
                 }
                 else
                 {
                     return "Błąd, plik nie istnieje!";
                 }
             }
-    }
+            //save statistic to the file
+            void savestatisctic()
+            {
+                System.IO.File.WriteAllText(@"C:\Users\kamil\Desktop\szkola\Analizator-tekstow\statystyki.txt", LettersCounter(_path) + Environment.NewLine + WordsCounter(_path)
+                   + Environment.NewLine + PunctuationMarksCounter(_path) + Environment.NewLine + SentencesCounter(_path));
+
+
+            }
+        }
 }
