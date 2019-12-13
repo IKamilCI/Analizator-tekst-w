@@ -39,6 +39,10 @@ namespace AnalizatorTekstow
                     Console.WriteLine(PunctuationMarksCounter(_path));
 
                 }
+                if (menuOption == 5)
+                {
+                    Console.WriteLine(SentencesCounter(_path));
+                }
                 if (menuOption == 8)
                     break;
             }
@@ -121,6 +125,38 @@ namespace AnalizatorTekstow
                     return "Błąd, plik nie istnieje!";
                 }
             }
-        }
+            string SentencesCounter(string path)
+            {
+                if (File.Exists(path))
+                {
+                    int SentencesCounter = 0;
+                    using (StreamReader reader = new StreamReader(path))
+                    {
+                        string tekst = File.ReadAllText(path);
+                        char[] separator = { '.', '?', '!' };
+                        SentencesCounter = 0;
+                        int Sentences = tekst.Split(separator, StringSplitOptions.RemoveEmptyEntries).Length;
+                        string[] character = tekst.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+
+                        for (int i = 0; i < Sentences; i++)
+                        {
+
+                            if (character[i].Length >= 10)
+                            {
+                                SentencesCounter += 1;
+                            }
+
+                        }
+
+
+
+                    }
+                    return SentencesCounter.ToString();
+                }
+                else
+                {
+                    return "Błąd, plik nie istnieje!";
+                }
+            }
     }
 }
