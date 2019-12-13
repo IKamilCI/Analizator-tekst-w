@@ -8,13 +8,14 @@ namespace AnalizatorTekstow
     {
         static void Main(string[] args)
         {
-            string _url = "https://s3.zylowski.net/public/input/3.txt";// string with hardcoded url adress of the file
-            string _path = @"C:\Users\kamil\Desktop\szkola\Analizator-tekstow\zadanie.txt";//string with path to where save the file
+            string folderPath = @"C:\Users\kamil\Desktop\szkola\Analizator-tekstow\"; //string with folder path to where save all file
+            string _url = "https://s3.zylowski.net/public/input/3.txt"; // string with hardcoded url adress of the file
+            string _path = folderPath + "zadanie.txt"; //string with path to where save the file
             while (true)
             {
                 Console.WriteLine("\n1. Pobierz plik z internetu.");
                 Console.WriteLine("2. Zlicz liczbę liter w pobranym pliku.");
-                Console.WriteLine("3. Zlicz liczbę wyrazów w pliku.");              
+                Console.WriteLine("3. Zlicz liczbę wyrazów w pliku.");
                 Console.WriteLine("4. Zlicz liczbę znaków interpunkcyjnych w pliku.");
                 Console.WriteLine("5. Zlicz liczbę zdań w pliku.");
                 Console.WriteLine("6. Wygeneruj raport o użyciu liter(A - Z).");
@@ -23,7 +24,7 @@ namespace AnalizatorTekstow
                 int menuOption = Convert.ToInt32(Console.ReadLine());
                 if (menuOption == 1)
                 {
-                    Console.WriteLine(Downloader(_url, _path));                                             
+                    Console.WriteLine(Downloader(_url, _path));
                 }
                 if (menuOption == 2)
                 {
@@ -34,18 +35,21 @@ namespace AnalizatorTekstow
                     Console.WriteLine(WordsCounter(_path));
                 }
                 if (menuOption == 4)
-
                 {
                     Console.WriteLine(PunctuationMarksCounter(_path));
-
                 }
                 if (menuOption == 5)
                 {
                     Console.WriteLine(SentencesCounter(_path));
                 }
+                if (menuOption == 6)
+                {
+                    letterAmount(_path);
+                    numberLettersGenerator(_path);
+                }
                 if (menuOption == 7)
                 {
-                    savestatisctic();
+                    saveStatisctic(_path);
                 }
                 if (menuOption == 8)
                     break;
@@ -55,19 +59,19 @@ namespace AnalizatorTekstow
             string Downloader(string url, string path)
             {
                 //checking if path and url are not empty to not couse exception
-                if(string.IsNullOrEmpty(url)&&string.IsNullOrEmpty(path))
+                if (string.IsNullOrEmpty(url) && string.IsNullOrEmpty(path))
                 {
                     return "\nAdres url i/albo ścieżka są puste. Pobieranie nieudane.";
                 }
                 else
-                {                    
+                {
                     using (WebClient myClient = new WebClient())
                     {
                         myClient.DownloadFile(url, path);
                     }
                     return "\nPlik został pobrany.";
                 }
-              
+
             }
 
             //counting letters in file 
@@ -85,7 +89,7 @@ namespace AnalizatorTekstow
                 }
                 else
                 {
-                    return "\nBłąd, plik nie istnieje!";
+                    return "\nBłąd, plik nie istnieje! Wykonaj najpierw punkt 1.";
                 }
             }
 
@@ -101,35 +105,34 @@ namespace AnalizatorTekstow
                         char[] rozdzielacze = new char[] { ' ', '\n', '\r' };
                         wordsCount = tekst.Split(rozdzielacze, StringSplitOptions.RemoveEmptyEntries).Length;
                     }
-                    return "\nLiczba wyrazów: "+wordsCount.ToString();
+                    return "\nLiczba wyrazów: " + wordsCount.ToString();
                 }
                 else
                 {
-                    return "\nBłąd, plik nie istnieje!";
+                    return "\nBłąd, plik nie istnieje! Wykonaj najpierw punkt 1.";
                 }
             }
+
             //counting Punctuation Marks in file 
             string PunctuationMarksCounter(string path)
             {
                 if (File.Exists(path))
                 {
                     int PunctuationMarksCounter;
-
                     using (StreamReader reader = new StreamReader(path))
                     {
                         string tekst = File.ReadAllText(path);
                         char[] separator = { '.', '?', '!', ',', ';', '-', '\'', '\'', ':' };
-
                         PunctuationMarksCounter = tekst.Split(separator, StringSplitOptions.RemoveEmptyEntries).Length;
-
                     }
-                    return "\nLiczba znakow interpunkcyjnych: " + PunctuationMarksCounter.ToString();
+                    return "\nLiczba znaków interpunkcyjnych: " + PunctuationMarksCounter.ToString();
                 }
                 else
                 {
-                    return "Błąd, plik nie istnieje!";
+                    return "\nBłąd, plik nie istnieje! Wykonaj najpierw punkt 1.";
                 }
             }
+
             //counting Sentences in file 
             string SentencesCounter(string path)
             {
@@ -151,26 +154,79 @@ namespace AnalizatorTekstow
                             {
                                 SentencesCounter += 1;
                             }
-
                         }
-
-
-
                     }
-                    return "\nLiczba zdan: " + SentencesCounter.ToString();
+                    return "\nLiczba zdań: " + SentencesCounter.ToString();
                 }
                 else
                 {
-                    return "Błąd, plik nie istnieje!";
+                    return "\nBłąd, plik nie istnieje! Wykonaj najpierw punkt 1.";
                 }
             }
-            //save statistic to the file
-            void savestatisctic()
+
+            //function to generate number of letters to the file
+            string letterAmount(string path)
             {
-                System.IO.File.WriteAllText(@"C:\Users\kamil\Desktop\szkola\Analizator-tekstow\statystyki.txt", LettersCounter(_path) + Environment.NewLine + WordsCounter(_path)
-                   + Environment.NewLine + PunctuationMarksCounter(_path) + Environment.NewLine + SentencesCounter(_path));
+                if (File.Exists(path))
+                {
+                    int[] arrayOfLetters = new int[(int)char.MaxValue];
+                    using (StreamReader reader = new StreamReader(path))
+                    {
+                        string tekst = File.ReadAllText(path);
 
+                        foreach (char letter in tekst)
+                        {
+                            if (letter >= 'A' && letter <= 'z')
+                            {
+                                arrayOfLetters[(int)letter]++;
+                            }
+                        }
 
+                        string numberLetters = "";
+
+                        for (char letter = 'A'; letter <= 'z'; letter++)
+                        {
+                            if (Char.IsLetter(letter))
+                            {
+                                numberLetters += ((char)letter + " : " + arrayOfLetters[letter] + "\n");
+                            }
+                        }
+                        return numberLetters;
+                    }
+                }
+                else
+                {
+                    return "\nBłąd, plik nie istnieje! Wykonaj najpierw punkt 1.";
+                }
+            }
+
+            //generate number of letters to the file
+            void numberLettersGenerator(string path)
+            {
+                if (File.Exists(path))
+                {
+                    System.IO.File.WriteAllText(folderPath + "cyfry.txt", letterAmount(_path));
+                    Console.WriteLine("\nIlosc poszczególnych liter została wygenerowana do cyfry.txt");
+                }
+                else
+                {
+                    Console.WriteLine("\nBłąd, plik nie istnieje! Wykonaj najpierw punkt 1.");
+                }
+            }
+
+            //save statistic to the file
+            void saveStatisctic(string path)
+            {
+                if (File.Exists(path))
+                {
+                    System.IO.File.WriteAllText(folderPath + "statystyki.txt", LettersCounter(_path) + Environment.NewLine + WordsCounter(_path) + Environment.NewLine + PunctuationMarksCounter(_path) + Environment.NewLine + SentencesCounter(_path));
+                    Console.WriteLine("\nStatystyki zostały zapisane do pliku.");
+                }
+                else
+                {
+                    Console.WriteLine("\nBłąd, plik nie istnieje! Wykonaj najpierw punkt 1.");
+                }
             }
         }
+    }
 }
