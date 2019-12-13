@@ -33,6 +33,12 @@ namespace AnalizatorTekstow
                 {
                     Console.WriteLine(WordsCounter(_path));
                 }
+                if (menuOption == 4)
+
+                {
+                    Console.WriteLine(PunctuationMarksCounter(_path));
+
+                }
                 if (menuOption == 8)
                     break;
             }
@@ -92,6 +98,27 @@ namespace AnalizatorTekstow
                 else
                 {
                     return "\nBłąd, plik nie istnieje!";
+                }
+            }
+            string PunctuationMarksCounter(string path)
+            {
+                if (File.Exists(path))
+                {
+                    int PunctuationMarksCounter;
+
+                    using (StreamReader reader = new StreamReader(path))
+                    {
+                        string tekst = File.ReadAllText(path);
+                        char[] separator = { '.', '?', '!', ',', ';', '-', '\'', '\'', ':' };
+
+                        PunctuationMarksCounter = tekst.Split(separator, StringSplitOptions.RemoveEmptyEntries).Length;
+
+                    }
+                    return PunctuationMarksCounter.ToString();
+                }
+                else
+                {
+                    return "Błąd, plik nie istnieje!";
                 }
             }
         }
