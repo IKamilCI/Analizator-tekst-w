@@ -52,7 +52,9 @@ namespace AnalizatorTekstow
                     saveStatisctic(_path);
                 }
                 if (menuOption == 8)
-                    break;
+                {
+                    ExitMethod(folderPath);
+                }
             }
 
             //metod downloading file from url, and saving it in the directory path
@@ -226,6 +228,20 @@ namespace AnalizatorTekstow
                 {
                     Console.WriteLine("\nBłąd, plik nie istnieje! Wykonaj najpierw punkt 1.");
                 }
+            }
+
+            //Exid method with deleting files
+            void ExitMethod(string path)
+            {
+                if(File.Exists(path + "statystyki.txt"))
+                {
+                    File.Delete(path + "statystyki.txt");
+                }
+                if (File.Exists(path + "zadanie.txt.txt"))
+                {
+                    File.Delete(path + "zadanie.txt.txt");
+                }
+                Environment.Exit(0);
             }
         }
     }
