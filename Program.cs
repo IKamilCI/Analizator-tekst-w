@@ -17,7 +17,7 @@ namespace AnalizatorTekstow
                 Console.WriteLine("\n1. Pobierz plik z internetu.");
                 Console.WriteLine("2. Zlicz liczbę liter w pobranym pliku.");
                 Console.WriteLine("3. Zlicz liczbę wyrazów w pliku.");
-                Console.WriteLine("4. Zlicz liczbę znaków interpunkcyjnych w pliku.");
+                Console.WriteLine("4. Zlicz liczbę znaków interpunkcyjnych ('.' i '?') w pliku.");
                 Console.WriteLine("5. Zlicz liczbę zdań w pliku.");
                 Console.WriteLine("6. Wygeneruj raport o użyciu liter(A - Z).");
                 Console.WriteLine("7. Zapisz statystyki z punktów 2 - 5 do pliku statystyki.txt.");
@@ -129,7 +129,7 @@ namespace AnalizatorTekstow
 
                         }
                     }
-                    return "\nLiczba samogłosek: " + numbervovels.ToString() + "\nLiczba społgłosek: " + numberconsonant.ToString();
+                    return "\nLiczba samogłosek: " + numbervovels.ToString() + "\n Liczba społgłosek: " + numberconsonant.ToString();
                 }
                 else
                 {
@@ -177,7 +177,7 @@ namespace AnalizatorTekstow
                     using (StreamReader reader = new StreamReader(path))
                     {
                         string tekst = File.ReadAllText(path);
-                        char[] separator = { '.', '?', '!', ',', ';', '-', '\'', '\'', ':' };
+                        char[] separator = { '.', '?' };
                         PunctuationMarksCounter = tekst.Split(separator, StringSplitOptions.RemoveEmptyEntries).Length;
                     }
                     return "\nLiczba znaków interpunkcyjnych: " + PunctuationMarksCounter.ToString();
