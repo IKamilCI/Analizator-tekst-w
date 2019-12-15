@@ -8,9 +8,10 @@ namespace AnalizatorTekstow
     {
         static void Main(string[] args)
         {
-            string folderPath = @"C:\Users\kamil\Desktop\szkola\Analizator-tekstow\"; //string with folder path to where save all file
+            string folderPath = @"C:\Users\studentwsb\Desktop\Analizator-tekstow-master\"; //string with folder path to where save all file
             string _url = "https://s3.zylowski.net/public/input/3.txt"; // string with hardcoded url adress of the file
-            string _path = folderPath + "zadanie.txt"; //string with path to where save the file
+            string plik = "";
+            string _path = folderPath + plik; //string with path to where save the file
             while (true)
             {
                 Console.WriteLine("\n1. Pobierz plik z internetu.");
@@ -60,20 +61,43 @@ namespace AnalizatorTekstow
             //metod downloading file from url, and saving it in the directory path
             string Downloader(string url, string path)
             {
-                //checking if path and url are not empty to not couse exception
-                if (string.IsNullOrEmpty(url) && string.IsNullOrEmpty(path))
+                while (true)
                 {
-                    return "\nAdres url i/albo ścieżka są puste. Pobieranie nieudane.";
-                }
-                else
-                {
-                    using (WebClient myClient = new WebClient())
+                    Console.WriteLine("\nChcesz pobrać plik z internetu[T] czy z komputera[N]\n");
+                    string trueFalse = Console.ReadLine();
+                    if (trueFalse == "T")
                     {
-                        myClient.DownloadFile(url, path);
+                        if (string.IsNullOrEmpty(url) && string.IsNullOrEmpty(path))
+                        {
+                            return "\nAdres url i/albo ścieżka są puste. Pobieranie nieudane.";
+                        }
+                        else
+                        {
+                            using (WebClient myClient = new WebClient())
+                            {
+                                plik = "zadanie.txt";
+                                _path = folderPath + plik;
+                                myClient.DownloadFile(url, _path);
+                            }
+                            return "\nPlik został pobrany.";
+                        }
                     }
-                    return "\nPlik został pobrany.";
-                }
+                    if (trueFalse == "N")
+                    {
+                        Console.WriteLine("\nPodaj nazwe pliku z komputera.");
+                        plik = Console.ReadLine();
+                        _path = folderPath + plik;
+                        if (!File.Exists(_path))
+                        {
+                            return "\nNazwa pliku jest nie poprawna.";
+                        }
+                        else
+                        {
+                            return "\nNazwa pliku jest poprawna.";
+                        }
 
+                    }
+                }
             }
 
             //counting letters in file 
