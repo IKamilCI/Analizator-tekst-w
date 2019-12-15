@@ -105,13 +105,31 @@ namespace AnalizatorTekstow
             {
                 if (File.Exists(path))
                 {
-                    int lettersCount;
+
+                    int numbervovels = 0;
+                    int numberconsonant = 0;
+
                     using (StreamReader reader = new StreamReader(path))
                     {
                         string tekst = File.ReadAllText(path);
-                        lettersCount = tekst.Length;
+
+                        foreach (char letter in tekst)
+                        {
+                            if (letter == 'A' || letter == 'a' || letter == 'E' || letter == 'e' || letter == 'O' || letter == 'o' || letter == 'U'
+                                    || letter == 'u' || letter == 'Y' || letter == 'y' || letter == 'I' || letter == 'i')
+                            {
+                                numbervovels++;
+                            }
+
+                            else
+                            {
+                                numberconsonant++;
+                            }
+
+
+                        }
                     }
-                    return "\nLiczba liter: " + lettersCount.ToString();
+                    return "\nLiczba samogłosek: " + numbervovels.ToString() + "\nLiczba społgłosek: " + numberconsonant.ToString();
                 }
                 else
                 {
@@ -124,12 +142,23 @@ namespace AnalizatorTekstow
             {
                 if (File.Exists(path))
                 {
-                    int wordsCount;
+                    int wordsCount = 0;
+                    int words;
                     using (StreamReader reader = new StreamReader(path))
                     {
                         string tekst = File.ReadAllText(path);
                         char[] rozdzielacze = new char[] { ' ', '\n', '\r' };
-                        wordsCount = tekst.Split(rozdzielacze, StringSplitOptions.RemoveEmptyEntries).Length;
+
+                        words = tekst.Split(rozdzielacze, StringSplitOptions.RemoveEmptyEntries).Length;
+                        string[] character = tekst.Split(rozdzielacze, StringSplitOptions.RemoveEmptyEntries);
+                        for (int i = 0; i < words; i++)
+                        {
+
+                            if (character[i].Length > 1)
+                            {
+                                wordsCount += 1;
+                            }
+                        }
                     }
                     return "\nLiczba wyrazów: " + wordsCount.ToString();
                 }
