@@ -237,9 +237,9 @@ namespace AnalizatorTekstow
                 {
                     File.Delete(path + "statystyki.txt");
                 }
-                if (File.Exists(path + "zadanie.txt.txt"))
+                if (File.Exists(path + "zadanie.txt"))
                 {
-                    File.Delete(path + "zadanie.txt.txt");
+                    File.Delete(path + "zadanie.txt");
                 }
                 Environment.Exit(0);
             }
