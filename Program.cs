@@ -8,10 +8,14 @@ namespace AnalizatorTekstow
     {
         static void Main(string[] args)
         {
-            string folderPath = @"C:\Users\studentwsb\Desktop\"; //string with folder path to where save all file
+            Console.WriteLine("Podaj scieżke do foldera gdzie maja byc zapisywane pliki (Przyklad: C:\\Users\\NAZWAUZYTKOWNIKA\\Desktop\\folder\\");
+            string folder = Console.ReadLine();
+
+            string folderPath = @folder; //string with folder path to where save all file
             string _url = "https://s3.zylowski.net/public/input/3.txt"; // string with hardcoded url adress of the file
             string plik = "";
             string _path = folderPath + plik; //string with path to where save the file
+
             while (true)
             {
                 Console.WriteLine("\n1. Pobierz plik z internetu.");
@@ -290,9 +294,9 @@ namespace AnalizatorTekstow
                 {
                     File.Delete(path + "statystyki.txt");
                 }
-                if (File.Exists(path + "zadanie.txt"))
+                if (File.Exists(path + plik))
                 {
-                    File.Delete(path + "zadanie.txt");
+                    File.Delete(path + plik);
                 }
                 Environment.Exit(0);
             }
