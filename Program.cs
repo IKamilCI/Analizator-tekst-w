@@ -8,7 +8,7 @@ namespace AnalizatorTekstow
     {
         static void Main(string[] args)
         {
-            string folderPath = @"C:\Users\studentwsb\Desktop\Analizator-tekstow-master\"; //string with folder path to where save all file
+            string folderPath = @"C:\Users\studentwsb\Desktop\"; //string with folder path to where save all file
             string _url = "https://s3.zylowski.net/public/input/3.txt"; // string with hardcoded url adress of the file
             string plik = "";
             string _path = folderPath + plik; //string with path to where save the file
@@ -197,7 +197,7 @@ namespace AnalizatorTekstow
                     using (StreamReader reader = new StreamReader(path))
                     {
                         string tekst = File.ReadAllText(path);
-                        char[] separator = { '.', '?', '!' };
+                        char[] separator = { '.', '?'};
                         SentencesCounter = 0;
                         int Sentences = tekst.Split(separator, StringSplitOptions.RemoveEmptyEntries).Length;
                         string[] character = tekst.Split(separator, StringSplitOptions.RemoveEmptyEntries);
@@ -211,7 +211,7 @@ namespace AnalizatorTekstow
                             }
                         }
                     }
-                    return "\nLiczba zdań: " + SentencesCounter.ToString();
+                    return "\nLiczba zdań (kończące się na ? i .) : " + SentencesCounter.ToString();
                 }
                 else
                 {
